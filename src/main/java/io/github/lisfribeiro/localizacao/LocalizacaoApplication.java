@@ -2,6 +2,7 @@ package io.github.lisfribeiro.localizacao;
 
 import io.github.lisfribeiro.localizacao.domain.entity.Cidade;
 import io.github.lisfribeiro.localizacao.domain.repository.CidadeRepository;
+import io.github.lisfribeiro.localizacao.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,21 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocalizacaoApplication implements CommandLineRunner {
 
 	@Autowired
-	private CidadeRepository repository;
+	private CidadeService service;
 
 	@Override
 	public void run(String... args) throws Exception {
-		listarCidades();
-	}
-
-	@Transactional
-	public void salvarCidade() {
-		var cidade = new Cidade(1L, "São Paulo", 12396372L);
-		repository.save(cidade);
-	}
-
-	public void listarCidades() {
-		repository.findAll().forEach(System.out::println);
+		var cidade = new Cidade(1L, "São Paulo", 100L );
+		service.listarCidadesSpecsFiltroDinamico(cidade);
 	}
 
 	public static void main(String[] args) {
